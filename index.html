@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Todo List</h1>
+    
+    <div class="add-todo">
+      <input type="text" id="new-task" placeholder="Add a new task...">
+      <input type="date" id="due-date">
+      <button id="add-button">Add</button>
+    </div>
+    
+    <div class="filters">
+      <button id="filter-all" class="active">All</button>
+      <button id="filter-active">Active</button>
+      <button id="filter-completed">Completed</button>
+      <button id="clear-completed">Clear Completed</button>
+    </div>
+    
+    <ul id="todo-list"></ul>
+  </div>
+
+  <!-- Todo item template -->
+  <template id="todo-template">
+    <li class="todo-item">
+      <div class="todo-content">
+        <input type="checkbox" class="todo-checkbox">
+        <span class="todo-text"></span>
+        <span class="todo-date"></span>
+      </div>
+      <div class="todo-actions">
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+      </div>
+    </li>
+  </template>
+
+  <!-- Edit form template -->
+  <template id="edit-template">
+    <div class="edit-form">
+      <input type="text" class="edit-input">
+      <input type="date" class="edit-date">
+      <button class="save-btn">Save</button>
+      <button class="cancel-btn">Cancel</button>
+    </div>
+  </template>
+
+  <script src="app.ts"></script>
+</body>
+</html>

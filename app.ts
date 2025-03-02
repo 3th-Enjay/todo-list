@@ -1,4 +1,3 @@
-// Define the TodoItem interface
 interface TodoItem {
     id: number;
     task: string;
@@ -6,12 +5,12 @@ interface TodoItem {
     dueDate: Date | null;
   }
   
-  // Implement the TodoList class
+  
   class TodoList {
     private todos: TodoItem[] = [];
     private nextId: number = 1;
   
-    // Add a new todo item
+    
     addTodo(task: string, dueDate: Date | null = null): void {
       const newTodo: TodoItem = {
         id: this.nextId++,
@@ -22,7 +21,7 @@ interface TodoItem {
       this.todos.push(newTodo);
     }
   
-    // Mark a todo item as completed
+    
     completeTodo(id: number): void {
       const todo = this.todos.find(todo => todo.id === id);
       if (todo) {
@@ -32,7 +31,7 @@ interface TodoItem {
       }
     }
   
-    // Toggle a todo item's completed status
+    
     toggleTodo(id: number): void {
       const todo = this.todos.find(todo => todo.id === id);
       if (todo) {
@@ -42,7 +41,7 @@ interface TodoItem {
       }
     }
   
-    // Remove a todo item
+
     removeTodo(id: number): void {
       const index = this.todos.findIndex(todo => todo.id === id);
       if (index !== -1) {
@@ -52,17 +51,17 @@ interface TodoItem {
       }
     }
   
-    // List all todo items
+
     listTodos(): TodoItem[] {
       return [...this.todos];
     }
   
-    // Filter todos by completed status
+    
     filterTodos(completed: boolean): TodoItem[] {
       return this.todos.filter(todo => todo.completed === completed);
     }
   
-    // Update a todo item's task
+    
     updateTodoTask(id: number, newTask: string): void {
       const todo = this.todos.find(todo => todo.id === id);
       if (todo) {
@@ -72,7 +71,7 @@ interface TodoItem {
       }
     }
   
-    // Update a todo item's due date
+    
     updateTodoDueDate(id: number, newDueDate: Date | null): void {
       const todo = this.todos.find(todo => todo.id === id);
       if (todo) {
@@ -82,18 +81,18 @@ interface TodoItem {
       }
     }
   
-    // Clear all completed todos
+    
     clearCompleted(): void {
       this.todos = this.todos.filter(todo => !todo.completed);
     }
   }
   
-  // App class to handle UI interactions
+  
   class TodoApp {
     private todoList: TodoList;
     private currentFilter: 'all' | 'active' | 'completed' = 'all';
     
-    // DOM Elements
+    
     private newTaskInput: HTMLInputElement;
     private dueDateInput: HTMLInputElement;
     private addButton: HTMLButtonElement;
@@ -106,7 +105,7 @@ interface TodoItem {
     constructor() {
       this.todoList = new TodoList();
       
-      // Initialize DOM elements
+      
       this.newTaskInput = document.getElementById('new-task') as HTMLInputElement;
       this.dueDateInput = document.getElementById('due-date') as HTMLInputElement;
       this.addButton = document.getElementById('add-button') as HTMLButtonElement;
@@ -121,7 +120,7 @@ interface TodoItem {
     }
     
     private setupEventListeners(): void {
-      // Add todo
+    
       this.addButton.addEventListener('click', () => this.handleAddTodo());
       this.newTaskInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -129,12 +128,12 @@ interface TodoItem {
         }
       });
       
-      // Filter todos
+      
       this.filterAllButton.addEventListener('click', () => this.setFilter('all'));
       this.filterActiveButton.addEventListener('click', () => this.setFilter('active'));
       this.filterCompletedButton.addEventListener('click', () => this.setFilter('completed'));
       
-      // Clear completed
+      
       this.clearCompletedButton.addEventListener('click', () => this.handleClearCompleted());
     }
     
@@ -168,21 +167,21 @@ interface TodoItem {
     }
     
     private handleEditTodo(todoItem: HTMLLIElement, todo: TodoItem): void {
-      // Get the edit template
+      
       const editTemplate = document.getElementById('edit-template') as HTMLTemplateElement;
       const editForm = editTemplate.content.cloneNode(true) as DocumentFragment;
       
-      // Clear the todo item content
+      
       todoItem.innerHTML = '';
       todoItem.appendChild(editForm);
       
-      // Set up the edit form
+      
       const editInput = todoItem.querySelector('.edit-input') as HTMLInputElement;
       const editDateInput = todoItem.querySelector('.edit-date') as HTMLInputElement;
       const saveButton = todoItem.querySelector('.save-btn') as HTMLButtonElement;
       const cancelButton = todoItem.querySelector('.cancel-btn') as HTMLButtonElement;
       
-      // Set initial values
+    
       editInput.value = todo.task;
       if (todo.dueDate) {
         const year = todo.dueDate.getFullYear();
@@ -191,10 +190,10 @@ interface TodoItem {
         editDateInput.value = `${year}-${month}-${day}`;
       }
       
-      // Focus the input
+      
       editInput.focus();
       
-      // Save button event
+      
       saveButton.addEventListener('click', () => {
         const newTask = editInput.value.trim();
         if (newTask) {
@@ -207,7 +206,7 @@ interface TodoItem {
         }
       });
       
-      // Cancel button event
+      
       cancelButton.addEventListener('click', () => {
         this.renderTodos();
       });
@@ -221,7 +220,7 @@ interface TodoItem {
     private setFilter(filter: 'all' | 'active' | 'completed'): void {
       this.currentFilter = filter;
       
-      // Update active filter button
+      
       this.filterAllButton.classList.toggle('active', filter === 'all');
       this.filterActiveButton.classList.toggle('active', filter === 'active');
       this.filterCompletedButton.classList.toggle('active', filter === 'completed');
@@ -230,10 +229,10 @@ interface TodoItem {
     }
     
     private renderTodos(): void {
-      // Clear the current list
+      
       this.todoListElement.innerHTML = '';
       
-      // Get filtered todos
+      
       let todos: TodoItem[];
       switch (this.currentFilter) {
         case 'active':
@@ -246,10 +245,10 @@ interface TodoItem {
           todos = this.todoList.listTodos();
       }
       
-      // Get the todo template
+      
       const todoTemplate = document.getElementById('todo-template') as HTMLTemplateElement;
       
-      // Render each todo
+      
       todos.forEach(todo => {
         const todoNode = todoTemplate.content.cloneNode(true) as DocumentFragment;
         const todoItem = todoNode.querySelector('.todo-item') as HTMLLIElement;
@@ -259,7 +258,7 @@ interface TodoItem {
         const editButton = todoNode.querySelector('.edit-btn') as HTMLButtonElement;
         const deleteButton = todoNode.querySelector('.delete-btn') as HTMLButtonElement;
         
-        // Set todo data
+    
         todoItem.dataset.id = todo.id.toString();
         if (todo.completed) {
           todoItem.classList.add('completed');
@@ -274,7 +273,7 @@ interface TodoItem {
           todoDate.style.display = 'none';
         }
         
-        // Set up event listeners
+    
         checkbox.addEventListener('change', () => this.handleToggleTodo(todo.id));
         editButton.addEventListener('click', () => this.handleEditTodo(todoItem, todo));
         deleteButton.addEventListener('click', () => this.handleRemoveTodo(todo.id));
@@ -284,7 +283,7 @@ interface TodoItem {
     }
   }
   
-  // Initialize the app when the DOM is loaded
+  
   document.addEventListener('DOMContentLoaded', () => {
     new TodoApp();
   });
